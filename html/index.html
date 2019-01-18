@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Polly Application</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  </head>
+  <script>
+    function handleSubmit() {
+      let text = document.getElementById('text').value;
+      $.post({
+        url: 'https://api.talk.hazelfire.net/talk',
+        data: text,
+        success: response => {
+          document.getElementById('resultfield').innerHTML =
+            '<a href="' + response.download + '">Download</a>';
+        },
+        error: (a, error, errorObject) => {
+          console.log(error);
+          console.log(errorObject);
+        },
+        contentType: 'application/json',
+        dataType: 'json',
+      });
+      return false;
+    }
+  </script>
+  <body>
+    <h1>Welcome to the speak my notes application</h1>
+    <h2>Please enter your notes below</h2>
+    <form onclick="return handleSubmit()">
+      <textarea id="text" name="text"></textarea
+      ><input type="submit" value="submit" />
+    </form>
+    <p id="resultfield"></p>
+  </body>
+</html>
